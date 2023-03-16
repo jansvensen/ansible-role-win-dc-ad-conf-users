@@ -1,0 +1,33 @@
+---
+#####################################
+### Create admin users
+#####################################
+
+- name: Ensure user domainjoin is present in OU=Admins,OU=Accounts,OU=Objects,DC=dt,DC=training
+  community.windows.win_domain_user:
+    name: '{{ item }}'
+    password: '{{ dc_password_admin }}'
+    state: present
+    path: '{{ dc_ou_admins }}'
+  loop:
+     - domainjoin
+     - admin
+
+#####################################
+### Create normal users
+#####################################
+
+- name: Ensure users are present in OU=User,OU=Accounts,OU=Objects,DC=dt,DC=training
+  community.windows.win_domain_user:
+    name: '{{ item }}'
+    password: '{{ dc_password_user }}'
+    state: present
+    path: '{{ dc_ou_user }}'
+  loop:
+     - user01
+     - user02
+     - user03
+
+# Source: https://docs.ansible.com/ansible/latest/collections/community/windows/win_domain_ou_module.html
+# ansible-galaxy collection install community.windows
+# https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html
