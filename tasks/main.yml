@@ -8,8 +8,8 @@
     name: '{{ item }}'
     password: '{{ dc_password_admin }}'
     state: present
-    path: '{{ dc_ou_user_admins }}'
-  with_items: '{{ dc_users_admin }}'
+    path: '{{ dc_ou_user_admin }}'
+  with_items: '{{ dc_user_admin }}'
 
 #####################################
 ### Create service users
@@ -21,7 +21,7 @@
     password: '{{ dc_password_service }}'
     state: present
     path: '{{ dc_ou_user_service }}'
-  with_items: '{{ dc_users_service }}'
+  with_items: '{{ dc_user_service }}'
 
 #####################################
 ### Create standard users
@@ -33,4 +33,4 @@
     password: '{{ dc_password_user_standard }}'
     state: present
     path: '{{ dc_ou_user_standard }}'
-  with_items: '{{ dc_users_standard }}'
+  with_items: '{{ dc_user_standard }}'
