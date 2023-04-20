@@ -3,31 +3,34 @@
 ### Create admin users
 #####################################
 
-- name: Ensure user domainjoin is present in OU=Admins,OU=Accounts,OU=Objects,DC=dt,DC=training
+- name: Ensure admin users are present in given OU
   community.windows.win_domain_user:
     name: '{{ item }}'
     password: '{{ dc_password_admin }}'
     state: present
-    path: '{{ dc_ou_admins }}'
-  loop:
-     - domainjoin
-     - admin
+    path: '{{ dc_ou_user_admins }}'
+  with_items: '{{ dc_users_admin }}'
 
 #####################################
-### Create normal users
+### Create service users
 #####################################
 
-- name: Ensure users are present in OU=User,OU=Accounts,OU=Objects,DC=dt,DC=training
+- name: Ensure service users are present in given OU
   community.windows.win_domain_user:
     name: '{{ item }}'
-    password: '{{ dc_password_user }}'
+    password: '{{ dc_password_service }}'
     state: present
-    path: '{{ dc_ou_user }}'
-  loop:
-     - user01
-     - user02
-     - user03
+    path: '{{ dc_ou_user_service }}'
+  with_items: '{{ dc_users_service }}'
 
-# Source: https://docs.ansible.com/ansible/latest/collections/community/windows/win_domain_ou_module.html
-# ansible-galaxy collection install community.windows
-# https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html
+#####################################
+### Create standard users
+#####################################
+
+- name: Ensure standard users are present in given OU
+  community.windows.win_domain_user:
+    name: '{{ item }}'
+    password: '{{ dc_password_user_standard }}'
+    state: present
+    path: '{{ dc_ou_user_standard }}'
+  with_items: '{{ dc_users_standard }}'
