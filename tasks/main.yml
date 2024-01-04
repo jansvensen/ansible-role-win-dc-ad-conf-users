@@ -8,7 +8,7 @@
     name: '{{ item }}'
     password: '{{ win_password_admin }}'
     state: present
-    path: '{{ dc_ou_user_admin }}'
+    path: '{{ dc_ou_accounts_admin }}'
   with_items: '{{ dc_user_admin }}'
 
 #####################################
@@ -20,7 +20,7 @@
     name: '{{ item }}'
     password: '{{ win_password_service }}'
     state: present
-    path: '{{ dc_ou_user_service }}'
+    path: '{{ dc_ou_accounts_service }}'
   with_items: '{{ dc_user_service }}'
 
 #####################################
@@ -32,5 +32,5 @@
     name: '{{ item }}'
     password: '{{ win_password_user_standard }}'
     state: present
-    path: '{{ dc_ou_user_standard }}'
+    path: '{{ dc_ou_accounts_user }}'
   with_items: '{{ dc_user_standard }}'
